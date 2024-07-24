@@ -1,0 +1,21 @@
+services:
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    environment:
+      - PUID=1001  # Set to your user ID
+      - PGID=1001  # Set to your group ID
+      - TZ=Asia/Singapore  # Set to your timezone
+    volumes:
+      - /home/dockeruser/Downloads/complete:/downloads
+      - /home/dockeruser/config/radarr:/config
+    ports:
+      - 7878:7878  # Radarr web UI
+    restart: unless-stopped
+    networks:
+      - p2p_net
+    userns_mode: "shared_ns"
+
+networks:
+  p2p_net:
+    external: true
